@@ -4,6 +4,8 @@
  */
 package ejerciciopruebagithub;
 
+import java.util.Scanner;
+
 /**
  *
  * @author arnol
@@ -16,6 +18,8 @@ public class Ejerciciopruebagithub {
     public static void main(String[] args) {
         // TODO code application logic here
         //Se ha creado una nueva Rama ArnoldEscalante
+        
+        Scanner input = new Scanner (System.in);
     }//Fin de Main
     
 }//Fin de class
