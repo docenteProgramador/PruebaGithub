@@ -17,8 +17,11 @@ public class EjercicioPruebaGitHub {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        //Este es un codigo de prueba de GitHub...Oscar Estuvo Aqui!!!
+        //Este es un codigo de prueba de GitHub...Oscar Estuvo Aqui!!!        
+        
         Scanner input = new Scanner(System.in);
+        
+        int variable1 = 0; //Mensaje de Carlos Murillo
     }//Fin de Main
     
 }//Fin de Class
