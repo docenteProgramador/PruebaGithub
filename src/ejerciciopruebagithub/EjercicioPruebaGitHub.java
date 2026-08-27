@@ -17,6 +17,7 @@ public class EjercicioPruebaGitHub {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        System.out.println("PRUEBA DE FREDY");
         //Este es un codigo de prueba de GitHub...Oscar Estuvo Aqui!!!
       
         Scanner input = new Scanner(System.in);
