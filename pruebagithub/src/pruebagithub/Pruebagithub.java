@@ -4,6 +4,8 @@
  */
 package pruebagithub;
 
+import java.util.Scanner;
+
 /**
  *
  * @author HP
@@ -15,7 +17,8 @@ public class Pruebagithub {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        //Holaaaa
-    }
+        //No se que poner JAJAJA
+        Scanner entrada = new Scanner(System.in);
+    }//fin de main 
     
-}
+}//fin de class
