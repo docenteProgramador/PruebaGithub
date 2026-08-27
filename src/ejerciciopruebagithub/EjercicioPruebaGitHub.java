@@ -22,10 +22,7 @@ public class EjercicioPruebaGitHub {
         Random rd = new Random();
         Scanner input = new Scanner(System.in);
         
-        int variable1 = 0; //Mensaje de Carlos Murillo
-        
-        System.out.print("Ingrese el valor de la primera variable: ");
-        variable1 = input.nextInt();
+        double num = 0;
     }//Fin de Main
     
 }//Fin de Class
