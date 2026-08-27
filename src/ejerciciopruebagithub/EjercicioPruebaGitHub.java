@@ -4,6 +4,7 @@
  */
 package ejerciciopruebagithub;
 
+import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -17,10 +18,14 @@ public class EjercicioPruebaGitHub {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        //Este es un codigo de prueba de GitHub...Oscar Estuvo Aqui!!!
-        Scanner entrada = new Scanner(System.in);
+        //Este es un codigo de prueba de GitHub...Oscar Estuvo Aqui!!!        
+        Random rd = new Random();
+        Scanner input = new Scanner(System.in);
         
-        //Se ha creado una nueva rama...es la de Oscar!!!
+        int variable1 = 0; //Mensaje de Carlos Murillo
+        
+        System.out.print("Ingrese el valor de la primera variable: ");
+        variable1 = input.nextInt();
     }//Fin de Main
     
 }//Fin de Class
