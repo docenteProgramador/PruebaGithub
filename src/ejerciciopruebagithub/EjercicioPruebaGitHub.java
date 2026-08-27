@@ -27,6 +27,13 @@ public class EjercicioPruebaGitHub {
         Scanner input = new Scanner(System.in);
         
         double num = 0;
+        String nombre;
+        
+        
+        System.out.println("Ingresa un nombre porfavor.");
+        nombre = input.nextLine();
+        
+        System.out.println("Hola, " + nombre);
     }//Fin de Main
     // no tengo nada simple
     
