@@ -18,10 +18,7 @@ public class EjercicioPruebaGitHub {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        Scanner teclado= new Scanner(System.in);
-        System.out.println("mi nombre creo q es :");
-        String nombre= teclado.nextLine();
-                
+        System.out.println("PRUEBA DE FREDY");
         //Este es un codigo de prueba de GitHub...Oscar Estuvo Aqui!!!
       
         Scanner input = new Scanner(System.in);
