@@ -20,6 +20,13 @@ public class EjercicioPruebaGitHub {
         //Este es un codigo de prueba de GitHub...Oscar Estuvo Aqui!!!
       
         Scanner input = new Scanner(System.in);
+        String nombre;
+        
+        
+        System.out.println("Ingresa un nombre porfavor.");
+        nombre = input.nextLine();
+        
+        System.out.println("Hola, " + nombre);
     }//Fin de Main
     
 }//Fin de Class
