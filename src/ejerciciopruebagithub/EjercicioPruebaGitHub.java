@@ -19,6 +19,8 @@ public class EjercicioPruebaGitHub {
         // TODO code application logic here
         //Este es un codigo de prueba de GitHub...Oscar Estuvo Aqui!!!
         Scanner input = new Scanner(System.in);
+        
+        double num = 0;
     }//Fin de Main
     
 }//Fin de Class
