@@ -30,7 +30,7 @@ import java.time.format.DateTimeFormatter;
  * 
  * @author angie
  */
-public class ProyectoProgra {
+public class EjercicioPruebaGitHub {
 
     /**
      * @param args the command line arguments
@@ -49,6 +49,7 @@ public class ProyectoProgra {
         int dia = 0;
         int mes = 0;
         int año = 0;
+        
         //Variables de fecha - Libreria LocalDate
         LocalDate fechaEntrada = null;
         LocalDate fechaSalida = null;
@@ -58,12 +59,12 @@ public class ProyectoProgra {
         LocalTime horaEntrada = LocalTime.of(15, 0);
         LocalTime horaSalida = LocalTime.of(12, 0);
         
-        
         System.out.println("======== SISTEMA DE REGISTRO DE HUESPED =======");
 
         System.out.println("Ingrese el nombre del huesped: ");
-        nombreHuesped = sc.nextLine(); //Lee toda la línea que escriba el usuario.Por eso usamos nextLine() para el nombre del huésped, porque puede tener nombre y apellido.
-
+        
+        //Lee toda la línea que escriba el usuario.Por eso usamos nextLine() para el nombre del huésped, porque puede tener nombre y apellido.
+        nombreHuesped = sc.nextLine(); 
         do {
             //Seleccion de Habitaciones
             System.out.println("\nSeleccione el tipo de habitacion");
@@ -72,21 +73,19 @@ public class ProyectoProgra {
             System.out.println("3. Suite");
             System.out.println("Respuesta:");
 
-            tipoHabitacion = sc.nextInt(); //Lee un número entero.
+            //Lee un número entero.
+            tipoHabitacion = sc.nextInt(); 
             switch (tipoHabitacion) {
                 case 1:
                     System.out.println("Selecciono Habitacion Sencilla");
-
                     break;
 
                 case 2:
                     System.out.println("Selecciono Habitacion Doble");
-
                     break;
 
                 case 3:
                     System.out.println("Selecciono Habitacion Suite");
-
                     break;
 
                 default:
@@ -107,9 +106,9 @@ public class ProyectoProgra {
                     precioHabitacion = 120;
                     break;
             }//Fin de Switch de precios
-
-        }//Fin de Do
-        while (tipoHabitacion < 1 || tipoHabitacion > 3); //Mientras la habitación sea menor que 1 O mayor que 3, vuelve a mostrar el menú.
+           
+        //Mientras la habitación sea menor que 1 O mayor que 3, vuelve a mostrar el menú.
+        } while (tipoHabitacion < 1 || tipoHabitacion > 3); 
 
         //Registro de Noches
         do {
@@ -120,10 +119,10 @@ public class ProyectoProgra {
                 System.out.println("Cantidad de noches no valida");
             }
 
-        }//Fin de do 
-        while (cantidadNoches <= 0); //¿La cantidad de noches es menor o igual a cero? 0 <= 0 V
+        //¿La cantidad de noches es menor o igual a cero? 0 <= 0 V
+        } while (cantidadNoches <= 0);
 
-      do {
+        do {
             do {
                 System.out.println("Ingrese el dia de entrada:");
                 dia = sc.nextInt();
@@ -148,18 +147,18 @@ public class ProyectoProgra {
                 }
             } while (año != 2026);
 
-    try {
-        fechaEntrada = LocalDate.of(año, mes, dia);
-        fechaValida = true;
+            try {
+                fechaEntrada = LocalDate.of(año, mes, dia);
+                fechaValida = true;
 
-    } catch (Exception e) {
-        System.out.println("Fecha no valida, ingrese ano, mes y dia conforme a calendario");
-        fechaValida = false;
-    }
+            } catch (Exception e) {
+                System.out.println("Fecha no valida, ingrese ano, mes y dia conforme a calendario");
+                fechaValida = false;
+            }
+        } while (!fechaValida);
 
-} while (!fechaValida);
-
-        fechaSalida = fechaEntrada.plusDays(cantidadNoches);
+        if(fechaEntrada != null)
+            fechaSalida = fechaEntrada.plusDays(cantidadNoches);
         
         DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
@@ -180,8 +179,14 @@ public class ProyectoProgra {
             System.out.println("Tipo de habitacion: " + tipoHabitacion);
             System.out.println("Precio por noche: $" + precioHabitacion);
             System.out.println("Total a pagar: $" + totalReserva);
-            System.out.println("Fecha de entrada: " + fechaEntrada.format(formatoFecha));
-            System.out.println("Fecha de salida: " + fechaSalida.format(formatoFecha));
+            if(fechaEntrada != null) {
+                System.out.println("Fecha de entrada: " + fechaEntrada.format(formatoFecha));
+            }
+            
+            if(fechaSalida != null){
+                System.out.println("Fecha de salida: " + fechaSalida.format(formatoFecha));
+            }
+            
             System.out.println("Horario de entrada: " + horaEntrada);
             System.out.println("Horario de salida: " + horaSalida);
             
