@@ -4,7 +4,6 @@
  */
 package ejerciciopruebagithub;
 
-import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -22,7 +21,7 @@ public class EjercicioPruebaGitHub {
         //Este es un codigo de prueba de GitHub...Oscar Estuvo Aqui!!!
       
         Scanner input = new Scanner(System.in);
-        
+            
         double num = 0;
         String nombre;
         
