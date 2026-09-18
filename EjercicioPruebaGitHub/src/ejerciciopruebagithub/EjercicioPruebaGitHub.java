@@ -6,23 +6,23 @@ package ejerciciopruebagithub;
 
 import java.util.Scanner;
 
-/**
- *
- * @author jaasi
- */
 public class EjercicioPruebaGitHub {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        
+
         Scanner sc = new Scanner(System.in);
 
         int opcion = 0;
 
-        // Constante del impuesto sobre ventas
         final double IMPUESTO = 0.15;
+
+        // Matriz de inventario
+        int[][] inventario = {
+            {50, 35, 40},
+            {30, 45, 25},
+            {20, 15, 30},
+            {100, 80, 90}
+        };
 
         do {
 
@@ -43,9 +43,58 @@ public class EjercicioPruebaGitHub {
 
                         if (producto != 4) {
 
-                            System.out.println("\nProducto seleccionado correctamente.");
-                            System.out.println("Categoria: " + categoria);
-                            System.out.println("Producto: " + producto);
+                            int codigo = ObtenerCodigoProducto(categoria, producto);
+                            String nombre = ObtenerNombreProducto(categoria, producto);
+                            double precio = ObtenerPrecioProducto(categoria, producto);
+
+                            int existencia = ObtenerExistencia(
+                                    inventario, categoria, producto);
+
+                            System.out.println("\n=================================");
+                            System.out.println("       PRODUCTO SELECCIONADO");
+                            System.out.println("=================================");
+
+                            System.out.println("Codigo: " + codigo);
+                            System.out.println("Producto: " + nombre);
+                            System.out.printf("Precio: L. %.2f%n", precio);
+                            System.out.println("Existencia: " + existencia);
+
+                            int cantidad = ValidacionCantidad(sc);
+
+                            if (cantidad <= existencia) {
+
+                                double subtotal = CalcularSubtotal(
+                                        cantidad, precio);
+
+                                System.out.println("\n=================================");
+                                System.out.println("       RESUMEN DE COMPRA");
+                                System.out.println("=================================");
+
+                                System.out.println("Producto: " + nombre);
+                                System.out.println("Cantidad: " + cantidad);
+                                System.out.printf(
+                                        "Precio: L. %.2f%n", precio);
+                                System.out.printf(
+                                        "Subtotal: L. %.2f%n", subtotal);
+
+                                inventario[categoria - 1][producto - 1]
+                                        = inventario[categoria - 1][producto - 1]
+                                        - cantidad;
+
+                                System.out.println(
+                                        "Compra registrada correctamente.");
+                                System.out.println(
+                                        "Nueva existencia: "
+                                        + inventario[categoria - 1][producto - 1]);
+
+                            } else {
+
+                                System.out.println("\nNo hay suficiente");
+                                System.out.println("inventario disponible.");
+                                System.out.println(
+                                        "Existencia actual: " + existencia);
+
+                            }
 
                         }
 
@@ -54,18 +103,22 @@ public class EjercicioPruebaGitHub {
                     break;
 
                 case 2:
+
                     System.out.println("\nSelecciono: Buscar Producto");
                     break;
 
                 case 3:
-                    System.out.println("\nSelecciono: Consultar Inventario");
+
+                    MostrarInventario(inventario);
                     break;
 
                 case 4:
+
                     System.out.println("\nSelecciono: Reporte de Ventas");
                     break;
 
                 case 5:
+
                     System.out.println("\n=================================");
                     System.out.println("      SISTEMA DE VENTAS");
                     System.out.println("=================================");
@@ -74,6 +127,7 @@ public class EjercicioPruebaGitHub {
                     break;
 
                 default:
+
                     System.out.println("\nOpcion incorrecta.");
                     System.out.println("Ingrese una opcion del 1 al 5.");
                     break;
@@ -194,5 +248,238 @@ public class EjercicioPruebaGitHub {
         return opcion;
 
     }//Fin de Funcion menuProductos
+
+
+    public static int ObtenerCodigoProducto(
+            int categoria, int producto) {
+
+        int codigo = 0;
+
+        if (categoria == 1) {
+
+            if (producto == 1) {
+                codigo = 101;
+            } else if (producto == 2) {
+                codigo = 102;
+            } else if (producto == 3) {
+                codigo = 103;
+            }
+
+        } else if (categoria == 2) {
+
+            if (producto == 1) {
+                codigo = 201;
+            } else if (producto == 2) {
+                codigo = 202;
+            } else if (producto == 3) {
+                codigo = 203;
+            }
+
+        } else if (categoria == 3) {
+
+            if (producto == 1) {
+                codigo = 301;
+            } else if (producto == 2) {
+                codigo = 302;
+            } else if (producto == 3) {
+                codigo = 303;
+            }
+
+        } else if (categoria == 4) {
+
+            if (producto == 1) {
+                codigo = 401;
+            } else if (producto == 2) {
+                codigo = 402;
+            } else if (producto == 3) {
+                codigo = 403;
+            }
+
+        }
+
+        return codigo;
+
+    }//Fin de Funcion ObtenerCodigoProducto
+
+
+    public static String ObtenerNombreProducto(
+            int categoria, int producto) {
+
+        String nombre = "";
+
+        if (categoria == 1) {
+
+            if (producto == 1) {
+                nombre = "Arquiteja";
+            } else if (producto == 2) {
+                nombre = "Thermotecho";
+            } else if (producto == 3) {
+                nombre = "Lamina Lisa";
+            }
+
+        } else if (categoria == 2) {
+
+            if (producto == 1) {
+                nombre = "Canal C";
+            } else if (producto == 2) {
+                nombre = "Tubo Cuadrado";
+            } else if (producto == 3) {
+                nombre = "Angulo";
+            }
+
+        } else if (categoria == 3) {
+
+            if (producto == 1) {
+                nombre = "Martillo";
+            } else if (producto == 2) {
+                nombre = "Taladro";
+            } else if (producto == 3) {
+                nombre = "Flexometro";
+            }
+
+        } else if (categoria == 4) {
+
+            if (producto == 1) {
+                nombre = "Tornillos";
+            } else if (producto == 2) {
+                nombre = "Bisagras";
+            } else if (producto == 3) {
+                nombre = "Remaches";
+            }
+
+        }
+
+        return nombre;
+
+    }//Fin de Funcion ObtenerNombreProducto
+
+
+    public static double ObtenerPrecioProducto(
+            int categoria, int producto) {
+
+        double precio = 0;
+
+        if (categoria == 1) {
+
+            if (producto == 1) {
+                precio = 1250;
+            } else if (producto == 2) {
+                precio = 950;
+            } else if (producto == 3) {
+                precio = 850;
+            }
+
+        } else if (categoria == 2) {
+
+            if (producto == 1) {
+                precio = 1200;
+            } else if (producto == 2) {
+                precio = 850;
+            } else if (producto == 3) {
+                precio = 650;
+            }
+
+        } else if (categoria == 3) {
+
+            if (producto == 1) {
+                precio = 350;
+            } else if (producto == 2) {
+                precio = 2500;
+            } else if (producto == 3) {
+                precio = 175;
+            }
+
+        } else if (categoria == 4) {
+
+            if (producto == 1) {
+                precio = 50;
+            } else if (producto == 2) {
+                precio = 75;
+            } else if (producto == 3) {
+                precio = 60;
+            }
+
+        }
+
+        return precio;
+
+    }//Fin de Funcion ObtenerPrecioProducto
+
+
+    public static int ValidacionCantidad(Scanner sc) {
+
+        int cantidad = 0;
+
+        do {
+
+            System.out.print(
+                    "\nIngrese la cantidad que desea comprar: ");
+
+            cantidad = sc.nextInt();
+
+            if (cantidad <= 0) {
+
+                System.out.println("Cantidad invalida.");
+                System.out.println(
+                        "La cantidad debe ser mayor que cero.");
+
+            }
+
+        } while (cantidad <= 0);
+
+        return cantidad;
+
+    }//Fin de Funcion ValidacionCantidad
+
+
+    public static double CalcularSubtotal(
+            int cantidad, double precio) {
+
+        double subtotal = 0;
+
+        subtotal = cantidad * precio;
+
+        return subtotal;
+
+    }//Fin de Funcion CalcularSubtotal
+
+
+    public static int ObtenerExistencia(
+            int[][] inventario, int categoria, int producto) {
+
+        int existencia = 0;
+
+        existencia = inventario[categoria - 1][producto - 1];
+
+        return existencia;
+
+    }//Fin de Funcion ObtenerExistencia
+
+
+    public static void MostrarInventario(int[][] inventario) {
+
+        System.out.println("\n========================================");
+        System.out.println("           INVENTARIO ACTUAL");
+        System.out.println("========================================");
+
+        for (int i = 0; i < inventario.length; i++) {
+
+            System.out.println("\nCategoria " + (i + 1));
+
+            for (int j = 0; j < inventario[i].length; j++) {
+
+                String nombre = ObtenerNombreProducto(i + 1, j + 1);
+                int codigo = ObtenerCodigoProducto(i + 1, j + 1);
+
+                System.out.println(
+                        "Codigo: " + codigo
+                        + "\tProducto: " + nombre
+                        + "\tExistencia: " + inventario[i][j]);
+
+            }//Fin Ciclo FOR Productos
+
+        }//Fin Ciclo FOR Categorias
+
+    }//Fin de Funcion MostrarInventario
 
 }//Fin de Class
