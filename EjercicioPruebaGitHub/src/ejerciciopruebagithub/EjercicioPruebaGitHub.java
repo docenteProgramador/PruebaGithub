@@ -15,11 +15,14 @@ public class EjercicioPruebaGitHub {
         int opcion = 0;
         final double IMPUESTO = 0.15;
 
+        // Acumuladores de la venta
         double acumuladoVenta = 0;
         int totalProductosVendidos = 0;
 
+        // Lista para registrar las compras
         ArrayList<String> compras = new ArrayList<>();
 
+        // Matriz de inventario
         int[][] inventario = {
             {50, 35, 40},
             {30, 45, 25},
@@ -73,16 +76,20 @@ public class EjercicioPruebaGitHub {
                                 double subtotal =
                                         CalcularSubtotal(cantidad, precio);
 
+                                // Acumular venta
                                 acumuladoVenta =
                                         acumuladoVenta + subtotal;
 
+                                // Acumular productos vendidos
                                 totalProductosVendidos =
                                         totalProductosVendidos + cantidad;
 
+                                // Actualizar inventario
                                 inventario[categoria - 1][producto - 1] =
                                         inventario[categoria - 1][producto - 1]
                                         - cantidad;
 
+                                // Registrar compra
                                 String registro =
                                         codigo + " - " + nombre
                                         + " - Cantidad: " + cantidad
@@ -142,6 +149,12 @@ public class EjercicioPruebaGitHub {
                                 IMPUESTO,
                                 sc);
 
+                        // Mostrar estadisticas
+                        MostrarEstadisticas(
+                                compras,
+                                acumuladoVenta,
+                                totalProductosVendidos);
+
                     } else {
 
                         System.out.println(
@@ -194,6 +207,7 @@ public class EjercicioPruebaGitHub {
     }//Fin de Funcion MostrarMenuPrincipal
 
 
+    // Muestra las categorias
     public static int menuCategorias(Scanner sc) {
 
         int opcion;
@@ -225,6 +239,7 @@ public class EjercicioPruebaGitHub {
     }//Fin de Funcion menuCategorias
 
 
+    // Muestra los productos de cada categoria
     public static int menuProductos(
             Scanner sc, int categoria) {
 
@@ -290,6 +305,7 @@ public class EjercicioPruebaGitHub {
     }//Fin de Funcion menuProductos
 
 
+    // Obtiene el codigo del producto
     public static int ObtenerCodigoProducto(
             int categoria, int producto) {
 
@@ -341,6 +357,7 @@ public class EjercicioPruebaGitHub {
     }//Fin de Funcion ObtenerCodigoProducto
 
 
+    // Obtiene el nombre del producto
     public static String ObtenerNombreProducto(
             int categoria, int producto) {
 
@@ -392,6 +409,7 @@ public class EjercicioPruebaGitHub {
     }//Fin de Funcion ObtenerNombreProducto
 
 
+    // Obtiene el precio del producto
     public static double ObtenerPrecioProducto(
             int categoria, int producto) {
 
@@ -443,6 +461,7 @@ public class EjercicioPruebaGitHub {
     }//Fin de Funcion ObtenerPrecioProducto
 
 
+    // Valida que la cantidad sea mayor que cero
     public static int ValidacionCantidad(Scanner sc) {
 
         int cantidad;
@@ -468,6 +487,7 @@ public class EjercicioPruebaGitHub {
     }//Fin de Funcion ValidacionCantidad
 
 
+    // Calcula el subtotal
     public static double CalcularSubtotal(
             int cantidad, double precio) {
 
@@ -476,6 +496,7 @@ public class EjercicioPruebaGitHub {
     }//Fin de Funcion CalcularSubtotal
 
 
+    // Obtiene la existencia del inventario
     public static int ObtenerExistencia(
             int[][] inventario,
             int categoria,
@@ -486,6 +507,7 @@ public class EjercicioPruebaGitHub {
     }//Fin de Funcion ObtenerExistencia
 
 
+    // Muestra todo el inventario
     public static void MostrarInventario(
             int[][] inventario) {
 
@@ -682,7 +704,6 @@ public class EjercicioPruebaGitHub {
                             + inventario[i][j]);
 
                     encontrado = true;
-
                 }
 
             }//Fin Ciclo FOR Productos
@@ -697,6 +718,38 @@ public class EjercicioPruebaGitHub {
         }
 
     }//Fin de Funcion BuscarProducto
+
+
+    // Muestra las estadisticas de ventas
+    public static void MostrarEstadisticas(
+            ArrayList<String> compras,
+            double totalVentas,
+            int productosVendidos) {
+
+        double promedioCompra =
+                totalVentas / compras.size();
+
+        System.out.println("\n========================================");
+        System.out.println("        ESTADISTICAS DE VENTAS");
+        System.out.println("========================================");
+
+        System.out.println(
+                "Cantidad de compras: " + compras.size());
+
+        System.out.println(
+                "Productos vendidos: " + productosVendidos);
+
+        System.out.printf(
+                "Total de ventas: L. %.2f%n",
+                totalVentas);
+
+        System.out.printf(
+                "Promedio por compra: L. %.2f%n",
+                promedioCompra);
+
+        System.out.println("========================================");
+
+    }//Fin de Funcion MostrarEstadisticas
 
 
     // Muestra el reporte de la venta
