@@ -12,20 +12,14 @@ public class EjercicioPruebaGitHub {
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
-
         int opcion = 0;
-
-        // Impuesto sobre ventas
         final double IMPUESTO = 0.15;
 
-        // Acumuladores de la venta
         double acumuladoVenta = 0;
         int totalProductosVendidos = 0;
 
-        // Lista para registrar las compras
         ArrayList<String> compras = new ArrayList<>();
 
-        // Matriz de inventario
         int[][] inventario = {
             {50, 35, 40},
             {30, 45, 25},
@@ -79,20 +73,16 @@ public class EjercicioPruebaGitHub {
                                 double subtotal =
                                         CalcularSubtotal(cantidad, precio);
 
-                                // Acumular venta
                                 acumuladoVenta =
                                         acumuladoVenta + subtotal;
 
-                                // Acumular cantidad de productos
                                 totalProductosVendidos =
                                         totalProductosVendidos + cantidad;
 
-                                // Actualizar inventario
                                 inventario[categoria - 1][producto - 1] =
                                         inventario[categoria - 1][producto - 1]
                                         - cantidad;
 
-                                // Registrar compra
                                 String registro =
                                         codigo + " - " + nombre
                                         + " - Cantidad: " + cantidad
@@ -131,8 +121,7 @@ public class EjercicioPruebaGitHub {
 
                 case 2:
 
-                    System.out.println(
-                            "\nSelecciono: Buscar Producto");
+                    BuscarProducto(sc, inventario);
 
                     break;
 
@@ -205,7 +194,6 @@ public class EjercicioPruebaGitHub {
     }//Fin de Funcion MostrarMenuPrincipal
 
 
-    // Muestra las categorias
     public static int menuCategorias(Scanner sc) {
 
         int opcion;
@@ -237,7 +225,6 @@ public class EjercicioPruebaGitHub {
     }//Fin de Funcion menuCategorias
 
 
-    // Muestra los productos de cada categoria
     public static int menuProductos(
             Scanner sc, int categoria) {
 
@@ -303,7 +290,6 @@ public class EjercicioPruebaGitHub {
     }//Fin de Funcion menuProductos
 
 
-    // Obtiene el codigo del producto
     public static int ObtenerCodigoProducto(
             int categoria, int producto) {
 
@@ -355,7 +341,6 @@ public class EjercicioPruebaGitHub {
     }//Fin de Funcion ObtenerCodigoProducto
 
 
-    // Obtiene el nombre del producto
     public static String ObtenerNombreProducto(
             int categoria, int producto) {
 
@@ -407,7 +392,6 @@ public class EjercicioPruebaGitHub {
     }//Fin de Funcion ObtenerNombreProducto
 
 
-    // Obtiene el precio del producto
     public static double ObtenerPrecioProducto(
             int categoria, int producto) {
 
@@ -459,7 +443,6 @@ public class EjercicioPruebaGitHub {
     }//Fin de Funcion ObtenerPrecioProducto
 
 
-    // Valida que la cantidad sea mayor que cero
     public static int ValidacionCantidad(Scanner sc) {
 
         int cantidad;
@@ -485,7 +468,6 @@ public class EjercicioPruebaGitHub {
     }//Fin de Funcion ValidacionCantidad
 
 
-    // Calcula el subtotal
     public static double CalcularSubtotal(
             int cantidad, double precio) {
 
@@ -494,7 +476,6 @@ public class EjercicioPruebaGitHub {
     }//Fin de Funcion CalcularSubtotal
 
 
-    // Obtiene la existencia del inventario
     public static int ObtenerExistencia(
             int[][] inventario,
             int categoria,
@@ -505,7 +486,6 @@ public class EjercicioPruebaGitHub {
     }//Fin de Funcion ObtenerExistencia
 
 
-    // Muestra todo el inventario
     public static void MostrarInventario(
             int[][] inventario) {
 
@@ -513,13 +493,11 @@ public class EjercicioPruebaGitHub {
         System.out.println("           INVENTARIO ACTUAL");
         System.out.println("========================================");
 
-        // Ciclo para las categorias
         for (int i = 0; i < inventario.length; i++) {
 
             System.out.println(
                     "\nCategoria " + (i + 1));
 
-            // Ciclo para los productos
             for (int j = 0;
                     j < inventario[i].length;
                     j++) {
@@ -572,7 +550,7 @@ public class EjercicioPruebaGitHub {
     }//Fin de Funcion ObtenerPorcentajeDescuento
 
 
-    // Muestra las compras guardadas en ArrayList
+    // Muestra las compras guardadas
     public static void MostrarCompras(
             ArrayList<String> compras) {
 
@@ -580,7 +558,6 @@ public class EjercicioPruebaGitHub {
         System.out.println("          COMPRAS REALIZADAS");
         System.out.println("========================================");
 
-        // Ciclo para recorrer el ArrayList
         for (int i = 0; i < compras.size(); i++) {
 
             System.out.println(
@@ -659,6 +636,69 @@ public class EjercicioPruebaGitHub {
     }//Fin de Funcion ObtenerFormaPago
 
 
+    // Busca un producto utilizando su codigo
+    public static void BuscarProducto(
+            Scanner sc, int[][] inventario) {
+
+        System.out.println("\n================================");
+        System.out.println("        BUSCAR PRODUCTO");
+        System.out.println("================================");
+
+        System.out.print("Ingrese el codigo del producto: ");
+        int codigoBuscado = sc.nextInt();
+
+        boolean encontrado = false;
+
+        for (int i = 0; i < inventario.length; i++) {
+
+            for (int j = 0; j < inventario[i].length; j++) {
+
+                int codigo =
+                        ObtenerCodigoProducto(i + 1, j + 1);
+
+                if (codigo == codigoBuscado) {
+
+                    String nombre =
+                            ObtenerNombreProducto(i + 1, j + 1);
+
+                    double precio =
+                            ObtenerPrecioProducto(i + 1, j + 1);
+
+                    System.out.println(
+                            "\nProducto encontrado.");
+
+                    System.out.println(
+                            "Codigo: " + codigo);
+
+                    System.out.println(
+                            "Producto: " + nombre);
+
+                    System.out.printf(
+                            "Precio: L. %.2f%n",
+                            precio);
+
+                    System.out.println(
+                            "Existencia: "
+                            + inventario[i][j]);
+
+                    encontrado = true;
+
+                }
+
+            }//Fin Ciclo FOR Productos
+
+        }//Fin Ciclo FOR Categorias
+
+        if (!encontrado) {
+
+            System.out.println(
+                    "\nNo existe un producto con ese codigo.");
+
+        }
+
+    }//Fin de Funcion BuscarProducto
+
+
     // Muestra el reporte de la venta
     public static void MostrarReporte(
             ArrayList<String> compras,
@@ -666,16 +706,22 @@ public class EjercicioPruebaGitHub {
             int productosVendidos,
             double impuesto,
             Scanner sc) {
+
         double porcentaje =
                 ObtenerPorcentajeDescuento(subtotal);
+
         double descuento =
                 subtotal * porcentaje;
+
         double subtotalDescuento =
                 subtotal - descuento;
+
         double valorImpuesto =
                 subtotalDescuento * impuesto;
+
         double total =
                 subtotalDescuento + valorImpuesto;
+
         MostrarCompras(compras);
 
         System.out.println("\n========================================");
@@ -715,6 +761,10 @@ public class EjercicioPruebaGitHub {
         System.out.println(
                 "Forma de pago: "
                 + ObtenerFormaPago(pago));
+
         System.out.println("========================================");
+
     }//Fin de Funcion MostrarReporte
+
+
 }//Fin de Class
