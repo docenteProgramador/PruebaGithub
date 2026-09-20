@@ -4,6 +4,7 @@
  */
 package ejerciciopruebagithub;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class EjercicioPruebaGitHub {
@@ -14,7 +15,15 @@ public class EjercicioPruebaGitHub {
 
         int opcion = 0;
 
+        // Impuesto sobre ventas
         final double IMPUESTO = 0.15;
+
+        // Acumuladores de la venta
+        double acumuladoVenta = 0;
+        int totalProductosVendidos = 0;
+
+        // Lista para registrar las compras
+        ArrayList<String> compras = new ArrayList<>();
 
         // Matriz de inventario
         int[][] inventario = {
@@ -43,17 +52,21 @@ public class EjercicioPruebaGitHub {
 
                         if (producto != 4) {
 
-                            int codigo = ObtenerCodigoProducto(categoria, producto);
-                            String nombre = ObtenerNombreProducto(categoria, producto);
-                            double precio = ObtenerPrecioProducto(categoria, producto);
+                            int codigo = ObtenerCodigoProducto(
+                                    categoria, producto);
+
+                            String nombre = ObtenerNombreProducto(
+                                    categoria, producto);
+
+                            double precio = ObtenerPrecioProducto(
+                                    categoria, producto);
 
                             int existencia = ObtenerExistencia(
                                     inventario, categoria, producto);
 
-                            System.out.println("\n=================================");
-                            System.out.println("       PRODUCTO SELECCIONADO");
-                            System.out.println("=================================");
-
+                            System.out.println("\n================================");
+                            System.out.println("     PRODUCTO SELECCIONADO");
+                            System.out.println("================================");
                             System.out.println("Codigo: " + codigo);
                             System.out.println("Producto: " + nombre);
                             System.out.printf("Precio: L. %.2f%n", precio);
@@ -63,73 +76,109 @@ public class EjercicioPruebaGitHub {
 
                             if (cantidad <= existencia) {
 
-                                double subtotal = CalcularSubtotal(
-                                        cantidad, precio);
+                                double subtotal =
+                                        CalcularSubtotal(cantidad, precio);
 
-                                System.out.println("\n=================================");
-                                System.out.println("       RESUMEN DE COMPRA");
-                                System.out.println("=================================");
+                                // Acumular venta
+                                acumuladoVenta =
+                                        acumuladoVenta + subtotal;
 
-                                System.out.println("Producto: " + nombre);
-                                System.out.println("Cantidad: " + cantidad);
-                                System.out.printf(
-                                        "Precio: L. %.2f%n", precio);
-                                System.out.printf(
-                                        "Subtotal: L. %.2f%n", subtotal);
+                                // Acumular cantidad de productos
+                                totalProductosVendidos =
+                                        totalProductosVendidos + cantidad;
 
-                                inventario[categoria - 1][producto - 1]
-                                        = inventario[categoria - 1][producto - 1]
+                                // Actualizar inventario
+                                inventario[categoria - 1][producto - 1] =
+                                        inventario[categoria - 1][producto - 1]
                                         - cantidad;
 
-                                System.out.println(
-                                        "Compra registrada correctamente.");
+                                // Registrar compra
+                                String registro =
+                                        codigo + " - " + nombre
+                                        + " - Cantidad: " + cantidad
+                                        + " - Subtotal: L. "
+                                        + String.format("%.2f", subtotal);
+
+                                compras.add(registro);
+
+                                System.out.println("\nCompra registrada.");
+                                System.out.printf(
+                                        "Subtotal: L. %.2f%n",
+                                        subtotal);
+
                                 System.out.println(
                                         "Nueva existencia: "
-                                        + inventario[categoria - 1][producto - 1]);
+                                        + inventario[categoria - 1]
+                                                [producto - 1]);
+
+                                System.out.println(
+                                        "Productos registrados: "
+                                        + compras.size());
 
                             } else {
 
-                                System.out.println("\nNo hay suficiente");
-                                System.out.println("inventario disponible.");
                                 System.out.println(
-                                        "Existencia actual: " + existencia);
+                                        "\nNo hay suficiente inventario.");
 
+                                System.out.println(
+                                        "Existencia disponible: "
+                                        + existencia);
                             }
-
                         }
-
                     }
 
                     break;
 
                 case 2:
 
-                    System.out.println("\nSelecciono: Buscar Producto");
+                    System.out.println(
+                            "\nSelecciono: Buscar Producto");
+
                     break;
 
                 case 3:
 
                     MostrarInventario(inventario);
+
                     break;
 
                 case 4:
 
-                    System.out.println("\nSelecciono: Reporte de Ventas");
+                    if (acumuladoVenta > 0) {
+
+                        MostrarReporte(
+                                compras,
+                                acumuladoVenta,
+                                totalProductosVendidos,
+                                IMPUESTO,
+                                sc);
+
+                    } else {
+
+                        System.out.println(
+                                "\nNo existen ventas registradas.");
+
+                    }
+
                     break;
 
                 case 5:
 
-                    System.out.println("\n=================================");
-                    System.out.println("      SISTEMA DE VENTAS");
-                    System.out.println("=================================");
+                    System.out.println("\n================================");
+                    System.out.println("       SISTEMA DE VENTAS");
+                    System.out.println("================================");
                     System.out.println("Programa finalizado.");
-                    System.out.println("Gracias por utilizar el sistema.");
+                    System.out.println(
+                            "Gracias por utilizar el sistema.");
+
                     break;
 
                 default:
 
                     System.out.println("\nOpcion incorrecta.");
-                    System.out.println("Ingrese una opcion del 1 al 5.");
+                    System.out.println(
+                            "Ingrese una opcion del 1 al 5.");
+
                     break;
 
             }//Fin Switch
@@ -139,11 +188,12 @@ public class EjercicioPruebaGitHub {
     }//Fin de Main
 
 
+    // Muestra el menu principal
     public static void MostrarMenuPrincipal() {
 
         System.out.println("\n========================================");
-        System.out.println("       SISTEMA DE VENTAS");
-        System.out.println("          FERRETERIA");
+        System.out.println("        SISTEMA DE VENTAS");
+        System.out.println("           FERRETERIA");
         System.out.println("========================================");
         System.out.println("1. Realizar Venta");
         System.out.println("2. Buscar Producto");
@@ -155,22 +205,23 @@ public class EjercicioPruebaGitHub {
     }//Fin de Funcion MostrarMenuPrincipal
 
 
+    // Muestra las categorias
     public static int menuCategorias(Scanner sc) {
 
         int opcion;
 
         do {
 
-            System.out.println("\n====================================");
+            System.out.println("\n================================");
             System.out.println("      CATEGORIAS DE PRODUCTOS");
-            System.out.println("====================================");
+            System.out.println("================================");
             System.out.println("1. Laminas");
             System.out.println("2. Perfiles");
             System.out.println("3. Herramientas");
             System.out.println("4. Accesorios");
             System.out.println("5. Volver");
-            System.out.print("Seleccione una categoria: ");
 
+            System.out.print("Seleccione una categoria: ");
             opcion = sc.nextInt();
 
             if (opcion < 1 || opcion > 5) {
@@ -186,15 +237,17 @@ public class EjercicioPruebaGitHub {
     }//Fin de Funcion menuCategorias
 
 
-    public static int menuProductos(Scanner sc, int categoria) {
+    // Muestra los productos de cada categoria
+    public static int menuProductos(
+            Scanner sc, int categoria) {
 
         int opcion;
 
         do {
 
-            System.out.println("\n====================================");
-            System.out.println("        PRODUCTOS DISPONIBLES");
-            System.out.println("====================================");
+            System.out.println("\n================================");
+            System.out.println("       PRODUCTOS DISPONIBLES");
+            System.out.println("================================");
 
             switch (categoria) {
 
@@ -250,6 +303,7 @@ public class EjercicioPruebaGitHub {
     }//Fin de Funcion menuProductos
 
 
+    // Obtiene el codigo del producto
     public static int ObtenerCodigoProducto(
             int categoria, int producto) {
 
@@ -261,7 +315,7 @@ public class EjercicioPruebaGitHub {
                 codigo = 101;
             } else if (producto == 2) {
                 codigo = 102;
-            } else if (producto == 3) {
+            } else {
                 codigo = 103;
             }
 
@@ -271,7 +325,7 @@ public class EjercicioPruebaGitHub {
                 codigo = 201;
             } else if (producto == 2) {
                 codigo = 202;
-            } else if (producto == 3) {
+            } else {
                 codigo = 203;
             }
 
@@ -281,7 +335,7 @@ public class EjercicioPruebaGitHub {
                 codigo = 301;
             } else if (producto == 2) {
                 codigo = 302;
-            } else if (producto == 3) {
+            } else {
                 codigo = 303;
             }
 
@@ -291,10 +345,9 @@ public class EjercicioPruebaGitHub {
                 codigo = 401;
             } else if (producto == 2) {
                 codigo = 402;
-            } else if (producto == 3) {
+            } else {
                 codigo = 403;
             }
-
         }
 
         return codigo;
@@ -302,6 +355,7 @@ public class EjercicioPruebaGitHub {
     }//Fin de Funcion ObtenerCodigoProducto
 
 
+    // Obtiene el nombre del producto
     public static String ObtenerNombreProducto(
             int categoria, int producto) {
 
@@ -313,7 +367,7 @@ public class EjercicioPruebaGitHub {
                 nombre = "Arquiteja";
             } else if (producto == 2) {
                 nombre = "Thermotecho";
-            } else if (producto == 3) {
+            } else {
                 nombre = "Lamina Lisa";
             }
 
@@ -323,7 +377,7 @@ public class EjercicioPruebaGitHub {
                 nombre = "Canal C";
             } else if (producto == 2) {
                 nombre = "Tubo Cuadrado";
-            } else if (producto == 3) {
+            } else {
                 nombre = "Angulo";
             }
 
@@ -333,7 +387,7 @@ public class EjercicioPruebaGitHub {
                 nombre = "Martillo";
             } else if (producto == 2) {
                 nombre = "Taladro";
-            } else if (producto == 3) {
+            } else {
                 nombre = "Flexometro";
             }
 
@@ -343,10 +397,9 @@ public class EjercicioPruebaGitHub {
                 nombre = "Tornillos";
             } else if (producto == 2) {
                 nombre = "Bisagras";
-            } else if (producto == 3) {
+            } else {
                 nombre = "Remaches";
             }
-
         }
 
         return nombre;
@@ -354,6 +407,7 @@ public class EjercicioPruebaGitHub {
     }//Fin de Funcion ObtenerNombreProducto
 
 
+    // Obtiene el precio del producto
     public static double ObtenerPrecioProducto(
             int categoria, int producto) {
 
@@ -365,7 +419,7 @@ public class EjercicioPruebaGitHub {
                 precio = 1250;
             } else if (producto == 2) {
                 precio = 950;
-            } else if (producto == 3) {
+            } else {
                 precio = 850;
             }
 
@@ -375,7 +429,7 @@ public class EjercicioPruebaGitHub {
                 precio = 1200;
             } else if (producto == 2) {
                 precio = 850;
-            } else if (producto == 3) {
+            } else {
                 precio = 650;
             }
 
@@ -385,7 +439,7 @@ public class EjercicioPruebaGitHub {
                 precio = 350;
             } else if (producto == 2) {
                 precio = 2500;
-            } else if (producto == 3) {
+            } else {
                 precio = 175;
             }
 
@@ -395,10 +449,9 @@ public class EjercicioPruebaGitHub {
                 precio = 50;
             } else if (producto == 2) {
                 precio = 75;
-            } else if (producto == 3) {
+            } else {
                 precio = 60;
             }
-
         }
 
         return precio;
@@ -406,9 +459,10 @@ public class EjercicioPruebaGitHub {
     }//Fin de Funcion ObtenerPrecioProducto
 
 
+    // Valida que la cantidad sea mayor que cero
     public static int ValidacionCantidad(Scanner sc) {
 
-        int cantidad = 0;
+        int cantidad;
 
         do {
 
@@ -419,7 +473,6 @@ public class EjercicioPruebaGitHub {
 
             if (cantidad <= 0) {
 
-                System.out.println("Cantidad invalida.");
                 System.out.println(
                         "La cantidad debe ser mayor que cero.");
 
@@ -432,49 +485,56 @@ public class EjercicioPruebaGitHub {
     }//Fin de Funcion ValidacionCantidad
 
 
+    // Calcula el subtotal
     public static double CalcularSubtotal(
             int cantidad, double precio) {
 
-        double subtotal = 0;
-
-        subtotal = cantidad * precio;
-
-        return subtotal;
+        return cantidad * precio;
 
     }//Fin de Funcion CalcularSubtotal
 
 
+    // Obtiene la existencia del inventario
     public static int ObtenerExistencia(
-            int[][] inventario, int categoria, int producto) {
+            int[][] inventario,
+            int categoria,
+            int producto) {
 
-        int existencia = 0;
-
-        existencia = inventario[categoria - 1][producto - 1];
-
-        return existencia;
+        return inventario[categoria - 1][producto - 1];
 
     }//Fin de Funcion ObtenerExistencia
 
 
-    public static void MostrarInventario(int[][] inventario) {
+    // Muestra todo el inventario
+    public static void MostrarInventario(
+            int[][] inventario) {
 
         System.out.println("\n========================================");
         System.out.println("           INVENTARIO ACTUAL");
         System.out.println("========================================");
 
+        // Ciclo para las categorias
         for (int i = 0; i < inventario.length; i++) {
 
-            System.out.println("\nCategoria " + (i + 1));
+            System.out.println(
+                    "\nCategoria " + (i + 1));
 
-            for (int j = 0; j < inventario[i].length; j++) {
+            // Ciclo para los productos
+            for (int j = 0;
+                    j < inventario[i].length;
+                    j++) {
 
-                String nombre = ObtenerNombreProducto(i + 1, j + 1);
-                int codigo = ObtenerCodigoProducto(i + 1, j + 1);
+                int codigo =
+                        ObtenerCodigoProducto(i + 1, j + 1);
+
+                String nombre =
+                        ObtenerNombreProducto(i + 1, j + 1);
 
                 System.out.println(
                         "Codigo: " + codigo
                         + "\tProducto: " + nombre
-                        + "\tExistencia: " + inventario[i][j]);
+                        + "\tExistencia: "
+                        + inventario[i][j]);
 
             }//Fin Ciclo FOR Productos
 
@@ -482,4 +542,179 @@ public class EjercicioPruebaGitHub {
 
     }//Fin de Funcion MostrarInventario
 
+
+    // Obtiene el porcentaje de descuento
+    public static double ObtenerPorcentajeDescuento(
+            double subtotal) {
+
+        double porcentaje;
+
+        if (subtotal < 5000) {
+
+            porcentaje = 0;
+
+        } else if (subtotal < 10000) {
+
+            porcentaje = 0.05;
+
+        } else if (subtotal < 20000) {
+
+            porcentaje = 0.10;
+
+        } else {
+
+            porcentaje = 0.15;
+
+        }
+
+        return porcentaje;
+
+    }//Fin de Funcion ObtenerPorcentajeDescuento
+
+
+    // Muestra las compras guardadas en ArrayList
+    public static void MostrarCompras(
+            ArrayList<String> compras) {
+
+        System.out.println("\n========================================");
+        System.out.println("          COMPRAS REALIZADAS");
+        System.out.println("========================================");
+
+        // Ciclo para recorrer el ArrayList
+        for (int i = 0; i < compras.size(); i++) {
+
+            System.out.println(
+                    (i + 1) + ". " + compras.get(i));
+
+        }//Fin Ciclo FOR
+
+        System.out.println(
+                "Total de compras: " + compras.size());
+
+    }//Fin de Funcion MostrarCompras
+
+
+    // Selecciona la forma de pago
+    public static int SeleccionarFormaPago(
+            Scanner sc) {
+
+        int opcion;
+
+        do {
+
+            System.out.println("\n================================");
+            System.out.println("          FORMA DE PAGO");
+            System.out.println("================================");
+            System.out.println("1. Efectivo");
+            System.out.println("2. Tarjeta");
+            System.out.println("3. Transferencia");
+
+            System.out.print("Seleccione una opcion: ");
+            opcion = sc.nextInt();
+
+            if (opcion < 1 || opcion > 3) {
+
+                System.out.println(
+                        "Opcion de pago invalida.");
+
+            }
+
+        } while (opcion < 1 || opcion > 3);
+
+        return opcion;
+
+    }//Fin de Funcion SeleccionarFormaPago
+
+
+    // Obtiene el nombre de la forma de pago
+    public static String ObtenerFormaPago(
+            int opcion) {
+
+        String formaPago = "";
+
+        switch (opcion) {
+
+            case 1:
+
+                formaPago = "Efectivo";
+
+                break;
+
+            case 2:
+
+                formaPago = "Tarjeta";
+
+                break;
+
+            case 3:
+
+                formaPago = "Transferencia";
+
+                break;
+
+        }
+
+        return formaPago;
+
+    }//Fin de Funcion ObtenerFormaPago
+
+
+    // Muestra el reporte de la venta
+    public static void MostrarReporte(
+            ArrayList<String> compras,
+            double subtotal,
+            int productosVendidos,
+            double impuesto,
+            Scanner sc) {
+        double porcentaje =
+                ObtenerPorcentajeDescuento(subtotal);
+        double descuento =
+                subtotal * porcentaje;
+        double subtotalDescuento =
+                subtotal - descuento;
+        double valorImpuesto =
+                subtotalDescuento * impuesto;
+        double total =
+                subtotalDescuento + valorImpuesto;
+        MostrarCompras(compras);
+
+        System.out.println("\n========================================");
+        System.out.println("          RESUMEN DE VENTA");
+        System.out.println("========================================");
+
+        System.out.println(
+                "Productos vendidos: "
+                + productosVendidos);
+
+        System.out.printf(
+                "Subtotal: L. %.2f%n",
+                subtotal);
+
+        System.out.printf(
+                "Descuento: %.0f%%%n",
+                porcentaje * 100);
+
+        System.out.printf(
+                "Valor descuento: L. %.2f%n",
+                descuento);
+
+        System.out.printf(
+                "Subtotal con descuento: L. %.2f%n",
+                subtotalDescuento);
+
+        System.out.printf(
+                "ISV 15%%: L. %.2f%n",
+                valorImpuesto);
+
+        System.out.printf(
+                "TOTAL A PAGAR: L. %.2f%n",
+                total);
+
+        int pago = SeleccionarFormaPago(sc);
+
+        System.out.println(
+                "Forma de pago: "
+                + ObtenerFormaPago(pago));
+        System.out.println("========================================");
+    }//Fin de Funcion MostrarReporte
 }//Fin de Class
